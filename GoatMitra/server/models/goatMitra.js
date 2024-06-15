@@ -29,6 +29,6 @@ const goatMitraSchema = new mongoose.Schema({
 //   }
 });
 
-const GoatMitra = mongoose.model('GoatMitra', goatMitraSchema);
+const goatMitra = mongoose.model('GoatMitra', goatMitraSchema);
 
-module.exports = GoatMitra;
+module.exports = goatMitra;
