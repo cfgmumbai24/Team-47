@@ -54,9 +54,9 @@ app.post('/goatpalaks/add', async (req, res) => {
         let id;
         if (owners.length > 0) {
             let last_value = owners.slice(-1)[0];
-            id = (1 + Number(last_value.goatPalakId)).toString();
+            id = last_value.goatPalakId + 1;
         } else {
-            id = "1";
+            id = 1;
         }
         const palak = new GoatPalak({
             goatPalakId: id,
@@ -107,6 +107,87 @@ app.put('/goatpalaks/:id/update', async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 });
+
+// API endpoints for Goats
+
+// GET
+app.get('/:id/goats', async (req, res) => {
+    try {
+        const { id } = req.params;
+        let goatPalaks = await Goat.find({ goatPalakId: id });
+        res.json(goatPalaks);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Error retrieving goat palaks' });
+    }
+});
+
+// ADD
+app.post('/:gId/goats/add', async (req, res) => {
+    try {
+        const { gId } = req.params;
+        let goats = await Goat.find({});
+        let id;
+
+        if (goats.length > 0) {
+            let last_value = goats.slice(-1)[0];
+            id = 1 + last_value.id;
+        } else {
+            id = 1;
+        }
+        const newGoat = new Goat({
+            id: id,
+            name: req.body.name,
+            gender: req.body.gender,
+            dob: new Date(req.body.dob),
+            goatPalakId: Number(gId),
+            vaccinationDate: new Date(req.body.vaccinationDate)
+        });
+
+        await newGoat.save();
+        console.log("Goat saved");
+
+        res.json({
+            success: true,
+            name: req.body.name,
+            goatPalakId: gId
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Error creating goat' });
+    }
+});
+
+// DELETE
+app.post('/:id/goats/:gId/delete', async (req, res) => {
+    try {
+        const {id, gId} = req.params;
+        await Goat.findOneAndDelete({ id: gId});
+        console.log("Goat removed");
+        res.json({
+            success: true,
+            id: gId
+        })
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Error deleting goat' });
+    }
+});
+
+// PUT
+app.put('/:id/goats/:gId/update', async (req, res) => {
+    try {
+        const { id, gId } = req.params;
+        const goat = await Goat.findOneAndUpdate({ id: id }, req.body);
+        if (!goat) {
+            return res.status(404).json({ message: `cannot find any Goat with ID ${gId}` })
+        }
+        res.status(200).json(goat);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
 
 
 //goat mitra
