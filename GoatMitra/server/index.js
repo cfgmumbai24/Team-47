@@ -19,8 +19,6 @@ const visit = require('./models/visit.js');
 app.use(express.json());
 app.use(cors());
 
-
-
 const uri = process.env.MONGODB_URL;
 mongoose.connect(uri, {
     useNewUrlParser: true,
