@@ -18,11 +18,11 @@ const visitSchema = new mongoose.Schema({
     required:true
   },
   height:{
-    type: Float32Array,
+    type: Number,
     required:true
   },
   weight:{
-    type:Float32Array,
+    type: Number,
     required:true
   },
   disease: [
