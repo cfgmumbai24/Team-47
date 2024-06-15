@@ -19,8 +19,6 @@ const visit = require('./models/visit.js');
 app.use(express.json());
 app.use(cors());
 
-
-
 const uri = process.env.MONGODB_URL;
 mongoose.connect(uri, {
     useNewUrlParser: true,
@@ -33,6 +31,80 @@ mongoose.connect(uri, {
 app.get("/", (req, res) => {
     res.send("Express App is running")
 })
+
+// APIs for Goat Palaks
+
+// GET
+app.get('/goatpalaks', async (req, res) => {
+    try {
+        let goatPalaks = await GoatPalak.find({});
+        res.json(goatPalaks);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Error retrieving goat palaks' });
+    }
+});
+
+// ADD
+app.post('/goatpalaks/add', async (req, res) => {
+    try {
+        let owners = await GoatPalak.find({});
+        let id;
+        if (owners.length > 0) {
+            let last_value = owners.slice(-1)[0];
+            id = (1 + Number(last_value.goatPalakId)).toString();
+        } else {
+            id = "1";
+        }
+        const palak = new GoatPalak({
+            goatPalakId: id,
+            name: req.body.name,
+            phoneNumber: req.body.phoneNumber,
+            area: req.body.area,
+            address: req.body.address
+        })
+        await palak.save();
+        console.log("Goat Palak saved");
+        res.json({
+            success: true,
+            name: req.body.name,
+            area: req.body.area
+        })
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Error creating goat palak' });
+    }
+});
+
+// DELETE
+app.post('/goatpalaks/:id/delete', async (req, res) => {
+    try {
+        const { id } = req.params;
+        await GoatPalak.findOneAndDelete({ goatPalakId: id });
+        console.log("Palak removed");
+        res.json({
+            success: true,
+            id: id
+        })
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Error deleting goat palak' });
+    }
+});
+
+// PUT
+app.put('/goatpalaks/:id/update', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const owner = await GoatPalak.findOneAndUpdate({ goatPalakId: id }, req.body);
+        if (!owner) {
+            return res.status(404).json({ message: `cannot find any Goat Palak with ID ${goatPalakId}` })
+        }
+        res.status(200).json(owner);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
 
 app.listen(port, (error) => {
     if (!error) {
