@@ -12,12 +12,12 @@ const goatSchema = new mongoose.Schema({
     required: true
   },
   id: {
-    type: String,
+    type: Number,
     required: true,
     unique: true
   },
   goatPalakId: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Number,
     ref: 'GoatPalak',
     required: true
   },

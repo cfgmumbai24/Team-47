@@ -19,7 +19,7 @@ const goatPalakSchema = new mongoose.Schema({
     required: true
   },
   goatPalakId:{
-    type: String,
+    type: Number,
     required: true,
     unique:true
   }
