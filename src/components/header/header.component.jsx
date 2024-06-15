@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import { ReactComponent as Logo } from "../../assets/crown.svg.svg";
 import "./header.styles.scss";
 import { auth } from "../../firebase/firebase.utils";
-
-
+// import StudentCard
+//  from "../card-status/StudentCard";
 const Header = ({ currentUser }) => (
   <div className="header">
     <Link to="/" className="logo-container">
@@ -12,8 +12,11 @@ const Header = ({ currentUser }) => (
     </Link>
 
     <div className="options">
-      <Link className="option" to="/contact">
-        CONTACT
+      <Link className="option" to="/aboutUs">
+        ABOUT US
+      </Link>
+      <Link className="option" to="/cardStatus">
+        StudentCard
       </Link>
       {
         currentUser ? 

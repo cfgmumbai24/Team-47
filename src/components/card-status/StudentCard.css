@@ -1,8 +1,11 @@
-body {
+/* StudentCard.css */
+
+/* body {
   background-color: #d8ae7e;
   font-family: cursive;
   font-size: 1.25rem;
-}
+} */
+
 .main {
   width: 40%;
   padding: 24px;
@@ -17,25 +20,27 @@ body {
 }
 
 .pic {
-  width: 12px;
-  height: 32px;
-  /* rounded-full  */
-  text-align: center;
-  margin: auto;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  margin-bottom: 20px;
 }
 
 ul {
   list-style-type: none;
+  padding: 0;
 }
 
 .div2 {
   margin-top: 40px;
   text-align: center;
 }
+
 .name {
   font-size: 20px;
   font-weight: bold;
 }
+
 .div1 {
   text-align: center;
   margin-top: 4px;
@@ -47,6 +52,6 @@ ul {
   justify-content: center;
 }
 
-li{
-    margin: auto;
+li {
+  margin: 10px 0;
 }
