@@ -25,6 +25,7 @@ const profileData = {
       },
     ],
   },
+  
 };
 
 const Profile = () => {
