@@ -1,8 +1,11 @@
 import React from 'react'
+import TitlePalak from '../components/TitlePalak/TitlePalak'
 
 const App = () => {
   return (
-    <div>App</div>
+    <div>
+      <TitlePalak />
+    </div>
   )
 }
 
