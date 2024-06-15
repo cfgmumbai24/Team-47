@@ -21,12 +21,7 @@ const goatMitraSchema = new mongoose.Schema({
   area: {
     type: String,
     required: true
-  },
-//   emailId: {
-//     type: String,
-//     required: true,
-//     unique: true
-//   }
+  }
 });
 
 const goatMitra = mongoose.model('GoatMitra', goatMitraSchema);
