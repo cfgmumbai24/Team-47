@@ -108,6 +108,65 @@ app.put('/goatpalaks/:id/update', async (req, res) => {
     }
 });
 
+
+//goat mitra
+//create
+app.post('/goatMitra/add', async (req, res) => {
+    try {
+        const { username,password,name,area, phoneNumber } = req.body;
+        const mitra = new GoatMitra({
+            username: req.body.username,
+            name: req.body.name,
+            phoneNumber: req.body.phoneNumber,
+            area: req.body.area,
+            password: req.body.password
+        })
+        await mitra.save();
+        console.log("Goat Mitra saved");
+        res.json({
+            success: true,
+            area: req.body.area
+        })
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Error creating goat mitra' });
+    }
+});
+
+//get
+app.get('/goatMitra/:username', async (req, res) => {
+    try {
+        const {username} = req.params;
+        let goatMitra = await GoatMitra.findOne({ username });
+        if (!goatMitra) {
+            res.status(404).json({ message: `GoatMitra not found with username ${username}` });
+        } else {
+            res.json(goatMitra);
+        }
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Error retrieving goat mitra' });
+    }
+});
+
+//put
+app.put('/goatMitra/:username/update', async (req, res) => {
+    try {
+        const { username } = req.params;
+        const mitra = await GoatMitra.findOneAndUpdate({ username: username }, req.body);
+        if (!mitra) {
+            return res.status(404).json({ message: `cannot find any Goat Palak with ID ${goatPalakId}` })
+        }
+        res.status(200).json(mitra);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+//visits
+//add
+
+
 app.listen(port, (error) => {
     if (!error) {
         console.log("Server running on port: " + port);
