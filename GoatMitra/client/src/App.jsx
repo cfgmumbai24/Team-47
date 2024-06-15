@@ -1,9 +1,14 @@
-import React from 'react'
+import React from 'react';
+import GenderPieChart from './components/PieChart.jsx';
 
 const App = () => {
   return (
-    <div>App</div>
-  )
-}
+    <div className="App">
+      <h1>Goat Farm</h1>
+      <GenderPieChart />
+    </div>
+  );
+};
 
-export default App
+export default App;
+
