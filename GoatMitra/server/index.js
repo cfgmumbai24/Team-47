@@ -10,8 +10,16 @@ const path = require("path");
 const { log } = require('console');
 const { type } = require('os');
 
+const Goat = require('./models/goat.js');
+const GoatPalak = require('./models/goatPalak.js');
+const GoatMitra = require('./models/goatMitra.js');
+const visit = require('./models/visit.js');
+
+// app.use(express.static())
 app.use(express.json());
 app.use(cors());
+
+
 
 const uri = process.env.MONGODB_URL;
 mongoose.connect(uri, {
