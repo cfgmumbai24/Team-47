@@ -6,9 +6,9 @@ import profile_icon from '../../assets/profile_icon.png'
 const Sidebar = (props) => {
     return (
         <div className='sidebar'>
-            <Link to = {'/profile'} style={{ textDecoration: 'none', marginLeft:'30px', display:'flex', gap:'10px', marginTop:'20px' }}>
-                <img src = {profile_icon} alt = ""/>
-                <p>{props.name}</p>
+            <Link to = {`/user/${props.id}`} style={{ textDecoration: 'none', marginLeft: '30px', display: 'flex', gap: '10px', marginTop: '20px' }}>
+                <img src={profile_icon} alt="" />
+                <p>{props.id}</p>
             </Link>
             <Link to={'/analyse'} style={{ textDecoration: 'none' }}>
                 <div className="sidebar-item">

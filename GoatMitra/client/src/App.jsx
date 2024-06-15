@@ -1,10 +1,14 @@
 import React from 'react'
-import Sidebar from './Components/Sidebar/Sidebar'
+import Profile from './Pages/Profile/Profile'
+import { Routes, Route } from 'react-router-dom'
 
 const App = () => {
   return (
     <div>
-      <Sidebar name = "Ram Verma"/>
+      {/* Login sign up logic */}
+      <Routes>
+        <Route path = '/user/:username' element = {<Profile/>}/>
+      </Routes>
     </div>
   )
 }
