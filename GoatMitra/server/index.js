@@ -178,7 +178,7 @@ app.post('/:id/goats/:gId/delete', async (req, res) => {
 app.put('/:id/goats/:gId/update', async (req, res) => {
     try {
         const { id, gId } = req.params;
-        const goat = await Goat.findOneAndUpdate({ id: id }, req.body);
+        const goat = await Goat.findOneAndUpdate({ id: gId }, req.body);
         if (!goat) {
             return res.status(404).json({ message: `cannot find any Goat with ID ${gId}` })
         }
