@@ -244,8 +244,6 @@ app.put('/goatMitra/:username/update', async (req, res) => {
     }
 });
 
-//visits
-//add
 
 
 app.listen(port, (error) => {
