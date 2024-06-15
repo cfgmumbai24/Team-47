@@ -15,6 +15,8 @@ const GoatPalak = require('./models/goatPalak.js');
 const GoatMitra = require('./models/goatMitra.js');
 const visit = require('./models/visit.js');
 
+
+
 // app.use(express.static())
 app.use(express.json());
 app.use(cors());
