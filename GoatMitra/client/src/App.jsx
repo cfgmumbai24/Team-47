@@ -5,6 +5,7 @@ import Goats from './Pages/Goats/Goats'
 import Analysis from './Pages/Analysis/Analysis'
 import GoatInfo from './Pages/GoatInfo/GoatInfo'
 import { Routes, Route } from 'react-router-dom'
+import VisitForm from './Pages/VisitForm/VisitForm'
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
         <Route path = '/user/:username/:id' element = {<Goats/>} />
         <Route path = '/user/:username/analysis' element = {<Analysis/>} />
         <Route path = '/user/:username/:id/:goat' element = {<GoatInfo/>} />
+        <Route path = '/user/:username/:id/:goat/visit' element = {<VisitForm/>}/>
       </Routes>
     </div>
   )
