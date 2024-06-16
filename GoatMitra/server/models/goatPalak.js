@@ -1,4 +1,5 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
+
 
 const goatPalakSchema = new mongoose.Schema({
   name: {
@@ -18,13 +19,13 @@ const goatPalakSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  goatPalakId:{
-    type: Number,
-    required: true,
-    unique:true
-  }
+  goats: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Goat'
+  }]
 });
+
 
 const GoatPalak = mongoose.model('GoatPalak', goatPalakSchema);
 
-module.exports = GoatPalak;
+export default GoatPalak;

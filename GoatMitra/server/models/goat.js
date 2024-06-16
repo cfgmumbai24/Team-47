@@ -1,7 +1,10 @@
-const mongoose = require('mongoose');
-const GoatPalak = require('./goatPalak');
+import mongoose from 'mongoose';
 
 const goatSchema = new mongoose.Schema({
+  name:{
+    type: String,
+    required: true
+  },
   gender: {
     type: String,
     required: true,
@@ -11,25 +14,15 @@ const goatSchema = new mongoose.Schema({
     type: Date,
     required: true
   },
-  id: {
-    type: Number,
-    required: true,
-    unique: true
-  },
-  goatPalakId: {
-    type: Number,
-    ref: 'GoatPalak',
-    required: true
-  },
   vaccinationDate: {
     type: Date,
   },
-  name:{
-    type: String,
-    required: true
-  }
+  visits : [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Visit'
+  }],
 });
 
 const Goat = mongoose.model('Goat', goatSchema);
 
-module.exports = Goat;
+export default Goat;
