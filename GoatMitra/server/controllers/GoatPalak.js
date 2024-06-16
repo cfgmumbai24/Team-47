@@ -1,6 +1,47 @@
 import goatMitra from "../models/goatMitra.js";
 import GoatPalak from "../models/goatPalak.js";
 
+const registerGoatPalaks = async (req, res) => {
+    try {
+        const goatPalakData = req.body.goatPalakData;
+        const createdPalaks = [];
+
+        for (let data of goatPalakData) {
+            const { name, phoneNumber, area, address } = data;
+            
+            const goatPalakExists = await GoatPalak.findOne({ phoneNumber });
+
+            if (goatPalakExists) {
+                // Skip existing GoatPalak
+                continue;
+            }
+
+            const goatPalakCreated = await GoatPalak.create({
+                name,
+                phoneNumber,
+                area,
+                address,
+            });
+
+            if (goatPalakCreated) {
+                createdPalaks.push(goatPalakCreated);
+            }
+        }
+
+
+        res.status(200).json({
+            success: true,
+            message: `${createdPalaks.length} GoatPalaks created successfully`,
+            data: createdPalaks,
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: "Internal server error",
+        });
+    }
+};
+
 const registerGoatPalak = async (req, res) => {
     try {
         const { name, phoneNumber, area, address } = req.body;
@@ -28,26 +69,42 @@ const registerGoatPalak = async (req, res) => {
         });
         }
     } catch (error) {
-        res.status(500).json({
+        return res.status(500).json({
         success: false,
         message: "Internal server error",
         });
     }
 };
+
+const getGoatPalakByarea = async(req,res) =>{
+    try {
+        const {area} = req.body;
+        const goatPalaks = await GoatPalak.find({area});
+        return res.status(200).json({
+            success:true,
+            goatPalaks
+        })
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: "Internal server error",
+        });
+    }
+}
 
 const getGoatPalak = async (req, res) => {
     try {
         const goatPalak = await GoatPalak.find({});
-        res.status(200).json({
+        return res.status(200).json({
         success: true,
         goatPalak,
         });
     } catch (error) {
-        res.status(500).json({
+        return res.status(500).json({
         success: false,
         message: "Internal server error",
         });
     }
 };
 
-export { registerGoatPalak, getGoatPalak };
+export { registerGoatPalak, getGoatPalak, registerGoatPalaks,getGoatPalakByarea };

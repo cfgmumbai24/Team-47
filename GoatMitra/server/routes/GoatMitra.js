@@ -1,5 +1,5 @@
-import { registerGoatMitra,loginGoatMitra } from "../controllers/GoatMitra";
-
+import { registerGoatMitra,loginGoatMitra } from "../controllers/GoatMitra.js";
+import express from 'express';
 const MitraRouter = express.Router();
 
 MitraRouter.post('/register', registerGoatMitra);

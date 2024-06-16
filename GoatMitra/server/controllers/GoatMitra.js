@@ -8,7 +8,7 @@ const registerGoatMitra = async (req, res) => {
     const goatMitraExists = await goatMitra.findOne({ email });
 
     if (goatMitraExists) {
-      res.status(400).json({
+      return res.status(400).json({
         success: false,
         message: "User already exists",
       });
@@ -23,15 +23,19 @@ const registerGoatMitra = async (req, res) => {
       area,
     });
 
-    if (goatMitraCreated) {
-      generateToken(res, goatMitraCreated._id);
-      res.status(200).json({
-        success: true,
-        message: "User created successfully",
-      });
-    }
+    generateToken(res, goatMitraCreated._id);
+    return res.status(200).json({
+      success:true,
+      id: goatMitraCreated._id,
+        name: goatMitraCreated.name,
+        email: goatMitraCreated.email,
+        username: goatMitraCreated.username,
+        phoneNumber: goatMitraCreated.phoneNumber,
+        area: goatMitraCreated.area,
+    });
   } catch (error) {
-    res.status(500).json({
+  console.log(error)
+    return res.status(500).json({
       success: false,
       message: "Internal server error",
     });
@@ -46,18 +50,24 @@ const loginGoatMitra = async (req, res) => {
 
     if (goatMitraExists && (await goatMitraExists.matchPasswords(password))) {
       generateToken(res, goatMitraExists._id);
-      res.status(200).json({
-        success: true,
-        message: "User logged in successfully",
+      return res.status(200).json({
+        success:true,
+        id: goatMitraExists._id,
+        name: goatMitraExists.name,
+        email: goatMitraExists.email,
+        username: goatMitraExists.username,
+        phoneNumber: goatMitraExists.phoneNumber,
+        area: goatMitraExists.area,
       });
     } else {
-      res.status(400).json({
+      return res.status(400).json({
         success: false,
         message: "Invalid credentials",
       });
     }
   } catch (error) {
-    res.status(500).json({
+    console.log(error)
+    return res.status(500).json({
       success: false,
       message: "Internal server error",
     });

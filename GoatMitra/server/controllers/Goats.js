@@ -3,6 +3,47 @@ import GoatPalak from "../models/goatPalak.js";
 import Visit from "../models/visit.js";
 import goatMitra from "../models/goatMitra.js";
 
+const registerGoats = async (req, res) => {
+    try {
+        const { goatData, goatPalak } = req.body;
+        const Palak = await GoatPalak.findById(goatPalak);
+
+        if (!Palak) {
+            return res.status(400).json({
+                success: false,
+                message: "Palak not found"
+            });
+        }
+
+        const goatIds = [];
+        for (let goat of goatData) {
+            const { name, gender, dob, vaccinationDate } = goat;
+            const goatCreated = await Goat.create({
+                name,
+                gender,
+                dob,
+                vaccinationDate
+            });
+
+            goatIds.push(goatCreated._id);
+        }
+
+        Palak.goats.push(...goatIds);
+        await Palak.save();
+
+        res.status(200).json({
+            success: true,
+            message: "Goats registered successfully"
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: "Internal server error"
+        });
+    }
+}
+
+
 const registerGoat = async (req, res) => {
     try {
         const {name,gender,dob,vaccinationDate,goatPalak} = req.body;
@@ -55,7 +96,7 @@ const getGoat = async (req, res) => {
 
 const getGoatById = async (req, res) => {
     try {
-        const goat = await Goat.findById(req.params.id);
+        const goat = await Goat.findById(req.params.id).populate('visits');
         res.status(200).json({
             success: true,
             goat
@@ -85,8 +126,8 @@ const getPalakGoats = async (req, res) => {
 
 const registerVisit = async (req, res) => {
     try {
-        const {goat,visitDate,weight,temperature,healthCondition} = req.body;
-        const goatExists = await Goat.findById(goat);
+        const {goatId , goatMitraId,visitDate,height,weight,disease} = req.body;
+        const goatExists = await Goat.findById(goatId);
 
         if(!goatExists){
             res.status(400).json({
@@ -96,23 +137,66 @@ const registerVisit = async (req, res) => {
         }
 
         const visitCreated = await Visit.create({
-            goat,
+            goatMitraId,
+            goatId,
             visitDate,
+            height,
             weight,
-            temperature,
-            healthCondition
+            disease
         });
 
         if(visitCreated){
             goatExists.visits.push(visitCreated._id);
             await goatExists.save();
-            res.status(200).json({
+            return res.status(200).json({
                 success: true,
                 message: "Visit created successfully"
             });
         }
     } catch (error) {
-        res.status(500).json({
+        console.log(error)
+        return res.status(500).json({
+            success: false,
+            message: "Internal server error"
+        });
+    }
+}
+
+const registerVisits = async(req,res) =>{
+    try {
+        const {visitData} = req.body;
+        for(let visit of visitData){
+            const {goatId , goatMitraId,visitDate,height,weight,disease} = visit;
+            const goatExists = await Goat.findById(goatId);
+    
+            if(!goatExists){
+                res.status(400).json({
+                    success: false,
+                    message: "Goat not found"
+                });
+            }
+    
+            const visitCreated = await Visit.create({
+                goatMitraId,
+                goatId,
+                visitDate,
+                height,
+                weight,
+                disease
+            });
+    
+            if(visitCreated){
+                goatExists.visits.push(visitCreated._id);
+                await goatExists.save();
+            }
+        }
+        return res.status(200).json({
+            success: true,
+            message: "Visit created successfully"
+        });
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({
             success: false,
             message: "Internal server error"
         });
@@ -149,4 +233,6 @@ const getVisitByGoat = async (req, res) => {
     }
 }
 
-export { registerGoat, getGoat, getGoatById, getPalakGoats, registerVisit, getVisit, getVisitByGoat };
+
+
+export { registerGoat, getGoat, getGoatById, getPalakGoats, registerVisit, getVisit, getVisitByGoat,registerGoats,registerVisits };
