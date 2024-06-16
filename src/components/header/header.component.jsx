@@ -12,9 +12,9 @@ const Header = ({ currentUser }) => (
     </Link>
 
     <div className="options">
-      <Link className="option" to="/aboutUs">
+      {/* <Link className="option" to="/aboutUs">
         ABOUT US
-      </Link>
+      </Link> */}
       {/* <Link className="option" to="/cardStatus">
         StudentCard
       </Link> */}
