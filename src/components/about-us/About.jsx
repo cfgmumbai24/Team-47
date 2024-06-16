@@ -6,8 +6,9 @@ const AboutUs = () => {
   return (
     <section id="about" className="about">
       <div className="image">
-        {/* <img src={pic} /> */}
+        <img src={require("./pic2.png")} className="pic2" />
       </div>
+      {/* <div className="main"> */}
       <div className="content">
         <h2>About Us</h2>
         <p>
@@ -32,18 +33,20 @@ const AboutUs = () => {
         <p>
           GramUdyam, our livelihood program, aims to enhance the economic
           well-being of rural households by promoting skill development,
-          entrepreneurship, and market linkages for local products.
-        </p>
-        <p>
-          Under our governance initiative, GramConnect, we work towards
-          strengthening local governance systems, promoting citizen
-          participation, and enhancing the delivery of public services.
+          entrepreneurship, and market linkages for local products. Under our
+          governance initiative, GramConnect, we work towards strengthening
+          local governance systems, promoting citizen participation, and
+          enhancing the delivery of public services.
         </p>
         <p>
           We believe in a holistic approach to rural development and strive to
           create a positive impact in the communities we serve. Join us in our
           mission to transform rural India.
         </p>
+      </div>
+      <div className="images">
+        <img src={require("./kids.jpg")} className="kids" />
+        <img src={require("./abc.jpg")} className="kids" />
       </div>
     </section>
   );

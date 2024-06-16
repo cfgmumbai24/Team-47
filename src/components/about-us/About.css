@@ -1,7 +1,7 @@
 .about {
   padding: 2rem;
   background-color: #f9f9f9;
-  display: flex;
+  /* display: flex; */
 }
 
 .about h2 {
@@ -11,6 +11,30 @@
 
 .about p {
   margin-bottom: 1rem;
-  line-height: 1.6;
+  line-height: normal;
   color: #333;
+  font-size: 1.2rem;
+}
+.pic2 {
+  width: 100%;
+  box-shadow: 0 20px 20px rgba(0, 0, 0, 0.1);
+}
+.content {
+  /* width: 50%; */
+  display: flex;
+  flex-direction: column;
+}
+/* .main {
+  display: flex;
+} */
+.kids {
+  width: 40%;
+  margin: 10px;
+  border-radius: 5px;
+  box-shadow: 0 20px 20px rgba(0, 0, 0, 0.1);
+}
+.images {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }

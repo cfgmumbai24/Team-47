@@ -11,6 +11,8 @@ const Header = ({ currentUser }) => (
       <Logo className="logo" />
     </Link>
 
+    <h2>Gram Urja Foundation</h2>
+
     <div className="options">
       {/* <Link className="option" to="/aboutUs">
         ABOUT US
@@ -18,17 +20,15 @@ const Header = ({ currentUser }) => (
       {/* <Link className="option" to="/cardStatus">
         StudentCard
       </Link> */}
-      {
-        currentUser ? 
-        <div className="option" onClick={() => auth.signOut()}> 
-        SIGN OUT
+      {currentUser ? (
+        <div className="option" onClick={() => auth.signOut()}>
+          SIGN OUT
         </div>
-        :
-        (<Link className="option" to="/signin">
-        SIGN IN
-      </Link>)
-      }
-      
+      ) : (
+        <Link className="option" to="/signin">
+          SIGN IN
+        </Link>
+      )}
     </div>
   </div>
 );
