@@ -1,0 +1,55 @@
+/* GoatPage.module.css */
+.main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    width: 100%;
+    height: fit-content;
+    padding-top: 2rem;
+}
+
+.goatPageContainer {
+    width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .goatPageTitle {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .visitSection {
+    margin-bottom: 20px;
+  }
+  
+  .goatItem {
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .goatItem:hover {
+    background-color: #f9f9f9;
+  }
+  
+  .goatName {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .goatDetails {
+    margin: 5px 0;
+  }
+  
+  .goatDetails2{
+    text-align: center;
+    margin: 5px 0;
+  }

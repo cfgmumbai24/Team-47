@@ -1,27 +1,24 @@
-import React from 'react'
-import './Sidebar.css'
-import { Link } from 'react-router-dom'
-import profile_icon from '../../assets/profile_icon.png'
+// Sidebar.js
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import styles from './Sidebar.module.css';
 
-const Sidebar = (props) => {
-    return (
-        <div className='sidebar'>
-            <Link to = {`/user/${props.id}`} style={{ textDecoration: 'none', marginLeft: '30px', display: 'flex', gap: '10px', marginTop: '20px' }}>
-                <img src={profile_icon} alt="" />
-                <p>{props.id}</p>
-            </Link>
-            <Link to={`/user/${props.id}/analysis`} style={{ textDecoration: 'none' }}>
-                <div className="sidebar-item">
-                    <p>Data Analysis</p>
-                </div>
-            </Link>
-            <Link to={`/user/${props.id}/palaks`} style={{ textDecoration: 'none' }}>
-                <div className="sidebar-item">
-                    <p>Goat Palaks</p>
-                </div>
-            </Link>
+const Sidebar = () => {
+    const { userInfo } = useSelector((state) => state.auth);
+
+    return ( 
+        <div className={styles.sidebar}>
+            <div className={styles.userDetails}>
+                <h2>Goat Mitra</h2>
+                <p>Name: {userInfo.name}</p>
+                <p>Email: {userInfo.email}</p>
+                <p>Area: {userInfo.area}</p>
+                <p>Phone Number: {userInfo.phoneNumber}</p>
+            </div>
+            <Link to="/dashboard" className={styles.navLink}>Dashboard</Link>
+            <Link to="/goatPalak" className={styles.navLink}>Goat Palak</Link>
         </div>
-    )
+    );
 }
-
-export default Sidebar
+ 
+export default Sidebar;
