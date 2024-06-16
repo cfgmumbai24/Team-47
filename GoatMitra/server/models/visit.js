@@ -4,12 +4,12 @@ const GoatMitra=require('./goatMitra')
 
 const visitSchema = new mongoose.Schema({
   goatMitraId:{
-    type:mongoose.Schema.Types.ObjectId,
+    type:String,
     ref:'GoatMitra',
     required:true
   },
   goatId:{
-    type:mongoose.Schema.Types.ObjectId,
+    type:Number,
     ref:'Goat',
     required:true
   },
@@ -25,9 +25,9 @@ const visitSchema = new mongoose.Schema({
     type: Number,
     required:true
   },
-  disease: [
-    { type: String },
-  ],
+  disease: {
+    type: String,
+  },
 });
 
 const Visit = mongoose.model('Visit', visitSchema);

@@ -9,6 +9,7 @@ const jwt = require("jsonwebtoken");
 const path = require("path");
 const { log } = require('console');
 const { type } = require('os');
+const body=require("body-parser");
 
 const Goat = require('./models/goat.js');
 const GoatPalak = require('./models/goatPalak.js');
@@ -20,6 +21,8 @@ const visit = require('./models/visit.js');
 // app.use(express.static())
 app.use(express.json());
 app.use(cors());
+app.use(body.json());
+app.use(body.urlencoded({ extended: true }));
 
 const uri = process.env.MONGODB_URL;
 mongoose.connect(uri, {
@@ -125,7 +128,7 @@ app.get('/:id/goats', async (req, res) => {
 app.get('/goats', async (req, res) => {
     try {
         const goats = await Goat.find(); // Fetch all goats
-        
+
         res.json(goats);
     } catch (err) {
         console.error(err);
@@ -172,8 +175,8 @@ app.post('/:gId/goats/add', async (req, res) => {
 // DELETE
 app.post('/:id/goats/:gId/delete', async (req, res) => {
     try {
-        const {id, gId} = req.params;
-        await Goat.findOneAndDelete({ id: gId});
+        const { id, gId } = req.params;
+        await Goat.findOneAndDelete({ id: gId });
         console.log("Goat removed");
         res.json({
             success: true,
@@ -205,7 +208,7 @@ app.put('/:id/goats/:gId/update', async (req, res) => {
 //create
 app.post('/goatMitra/add', async (req, res) => {
     try {
-        const { username,password,name,area, phoneNumber } = req.body;
+        const { username, password, name, area, phoneNumber } = req.body;
         const mitra = new GoatMitra({
             username: req.body.username,
             name: req.body.name,
@@ -228,7 +231,7 @@ app.post('/goatMitra/add', async (req, res) => {
 //get
 app.get('/goatMitra/:username', async (req, res) => {
     try {
-        const {username} = req.params;
+        const { username } = req.params;
         let goatMitra = await GoatMitra.findOne({ username });
         if (!goatMitra) {
             res.status(404).json({ message: `GoatMitra not found with username ${username}` });
@@ -256,6 +259,70 @@ app.put('/goatMitra/:username/update', async (req, res) => {
 });
 
 
+app.post('/goat/visit', async (req, res) => {
+    try {
+        const { goatMitraId, goatId, visitDate, height, weight, disease } = req.body;
+
+        const visitCreated = await visit.create({
+            goatMitraId,
+            goatId,
+            visitDate,
+            height,
+            weight,
+            disease
+        });
+
+        if (visitCreated) {
+            await visitCreated.save();
+            return res.status(200).json({
+                success: true,
+                message: "Visit created successfully"
+            });
+        } else {
+            return res.status(500).json({
+                success: false,
+                message: "Failed to create visit"
+            });
+        }
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({
+            success: false,
+            message: "Internal server error"
+        });
+    }
+});
+
+
+const getVisit = async (req, res) => {
+    try {
+        const visit = await Visit.find({});
+        res.status(200).json({
+            success: true,
+            visit
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: "Internal server error"
+        });
+    }
+}
+
+const getVisitByGoat = async (req, res) => {
+    try {
+        const visit = await Visit.find({ goat: req.params.id });
+        res.status(200).json({
+            success: true,
+            visit
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: "Internal server error"
+        });
+    }
+}
 
 app.listen(port, (error) => {
     if (!error) {

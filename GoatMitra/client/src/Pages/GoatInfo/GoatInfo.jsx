@@ -6,7 +6,7 @@ import Goat from '../../Components/Goat/Goat';
 const GoatInfo = () => {
     const { username, id, goat } = useParams();
     const [data, setData] = useState([]);
-    const [selectedGoat, setSelectedGoat] = useState(null);
+    const [selectedGoat, setSelectedGoat] = useState("");
     const fetchInfo = async () => {
         try {
             const res = await fetch(`http://localhost:4000/${id}/goats`);

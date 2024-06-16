@@ -1,6 +1,6 @@
 let visit = [
     {
-        goatMitraId: "1",
+        goatMitraId: "Mitra1",
         goatId: "1",
         visitDate: new Date("2024-03-15T00:00:00Z"),
         height: 42.3,
@@ -8,7 +8,7 @@ let visit = [
         diseases: ["Foot Rot", "Mastitis"]
     },
     {
-        goatMitraId: "1",
+        goatMitraId: "Mitra1",
         goatId: "2",
         visitDate: new Date("2024-05-20T00:00:00Z"),
         height: 40.5,
@@ -16,7 +16,7 @@ let visit = [
         diseases: ["Blue Tongue", "Pneumonia"]
     },
     {
-        goatMitraId: "1",
+        goatMitraId: "Mitra1",
         goatId: "3",
         visitDate: new Date("2024-06-10T00:00:00Z"),
         height: 38.7,
@@ -24,7 +24,7 @@ let visit = [
         diseases: []
     },
     {
-        goatMitraId: "1",
+        goatMitraId: "Mitra1",
         goatId: "4",
         visitDate: new Date("2024-07-18T00:00:00Z"),
         height: 41.2,
@@ -32,7 +32,7 @@ let visit = [
         diseases: ["Orf", "Foot Rot"]
     },
     {
-        goatMitraId: "1",
+        goatMitraId: "Mitra1s",
         goatId: "5",
         visitDate: new Date("2024-08-25T00:00:00Z"),
         height: 39.0,
