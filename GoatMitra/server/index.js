@@ -125,6 +125,7 @@ app.get('/:id/goats', async (req, res) => {
 app.get('/goats', async (req, res) => {
     try {
         const goats = await Goat.find(); // Fetch all goats
+        
         res.json(goats);
     } catch (err) {
         console.error(err);

@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { Pie } from 'react-chartjs-2';
 import 'chart.js/auto'; // Ensure this import is included
+import './PieChart.css';
 
 const GenderPieChart = () => {
   const [maleCount, setMaleCount] = useState(0);
   const [femaleCount, setFemaleCount] = useState(0);
 
   useEffect(() => {
-    fetch('/goats')
+    fetch('http://localhost:4000/goats')
       .then(response => response.json())
       .then(data => {
         console.log('Fetched data:', data); // Log the data
-        const maleCount = data.filter(goat => goat.gender === 'male').length;
-        const femaleCount = data.filter(goat => goat.gender === 'female').length;
+        const maleCount = data.filter(goat => goat.gender === 'Male').length;
+        const femaleCount = data.filter(goat => goat.gender === 'Female').length;
         setMaleCount(maleCount);
         setFemaleCount(femaleCount);
       })
@@ -39,7 +40,9 @@ const GenderPieChart = () => {
   return (
     <div>
       <h2>Goat Gender Distribution</h2>
-      {maleCount || femaleCount ? <Pie data={data} /> : <p>Loading...</p>}
+      <div className='chart'>
+      {maleCount || femaleCount ?   <Pie data={data}/> : <p>Loading...</p>}
+      </div>
     </div>
   );
 };
