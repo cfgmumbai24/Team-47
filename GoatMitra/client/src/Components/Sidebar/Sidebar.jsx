@@ -15,7 +15,7 @@ const Sidebar = (props) => {
                     <p>Data Analysis</p>
                 </div>
             </Link>
-            <Link to={'/goatpalaks'} style={{ textDecoration: 'none' }}>
+            <Link to={`/user/${props.id}/palaks`} style={{ textDecoration: 'none' }}>
                 <div className="sidebar-item">
                     <p>Goat Palaks</p>
                 </div>
