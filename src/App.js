@@ -74,6 +74,7 @@ import AddFellow from "./components/add-fellow/AddFellow";
 import Profile from "./components/fellow-profile/Profile";
 import AboutUs from "./components/about-us/About";
 import Footer from "./components/footer/Footer";
+import StudentProfile from "./components/StudentProfile/StudentProfile";
 
 class App extends React.Component {
   constructor() {
@@ -116,6 +117,8 @@ class App extends React.Component {
           <Route path="/fellow-manager-dashboard" element={<FellowManagerDashboard />} />
           <Route path="/Profile" element={<Profile />} />
           <Route path="/add-fellow" element={<AddFellow />} />
+          <Route path="/student-profile" element={<StudentProfile />} />
+         
         </Routes>
       </div>
     );
