@@ -81,6 +81,26 @@ app.post('/goatpalaks/add', async (req, res) => {
     }
 });
 
+app.post('/login', async (req, res) => {
+    let mitra = await GoatMitra.findOne({username:req.body.username});
+    if (mitra){
+        const passCompare = req.body.password === mitra.password;
+        if (passCompare){
+            const data = {
+                mitra:{
+                    username:req.body.username
+                }
+            }
+            const token = jwt.sign(data, 'secret');
+            res.json({success:true, token});
+        }else{
+            res.json({success:false, errors:"wrong password"});
+        }
+    }else{
+        res.json({success:false, errors:"User does not exist"})
+    }
+})
+
 // DELETE
 app.post('/goatpalaks/:id/delete', async (req, res) => {
     try {

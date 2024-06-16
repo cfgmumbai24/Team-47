@@ -6,12 +6,16 @@ import Analysis from './Pages/Analysis/Analysis'
 import GoatInfo from './Pages/GoatInfo/GoatInfo'
 import { Routes, Route } from 'react-router-dom'
 import VisitForm from './Pages/VisitForm/VisitForm'
+import Login from './Pages/LoginSignup/Login'
+import SignUp from './Pages/LoginSignup/SignUp'
 
 const App = () => {
   return (
     <div>
-      {/* Login sign up logic */}
+      {/* <Login /> */}
       <Routes>
+        <Route path = '/' element = {<Login/>}/>
+        <Route path = '/signup' element = {<SignUp/>}/>
         <Route path = '/user/:username' element = {<Profile/>}/>
         <Route path = '/user/:username/palaks' element = {<Palak/>} />
         <Route path = '/user/:username/:id' element = {<Goats/>} />
