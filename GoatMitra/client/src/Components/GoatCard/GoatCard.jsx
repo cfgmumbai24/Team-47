@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 const GoatCard = (props) => {
     const { username } = useParams();
     return (
-        // <Link to = {`/user/${username}/${props.id}`}>
+        <Link to = {`/user/${username}/${props.pId}/${props.id}`}>
             <div className="container mx-auto px-5 py-10 md:py-14">
                 {/* main */}
                 <div className="flex justify-center flex-wrap -m-4 text-center">
@@ -36,7 +36,7 @@ const GoatCard = (props) => {
                     </div>
                 </div>
             </div>
-        // </Link>
+         </Link>
     );
 }
 

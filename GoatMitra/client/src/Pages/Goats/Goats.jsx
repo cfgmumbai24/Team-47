@@ -30,7 +30,7 @@ const Goats = () => {
       <Sidebar id={username} />
       <div className='flex-column mx-auto'>
         {data.map((item) => {
-          return <GoatCard name={item.name} gender={item.gender} dob={item.dob} pId = {id}/>
+          return <GoatCard id = {item.id} name={item.name} gender={item.gender} dob={item.dob} pId = {id}/>
         })}
       </div>
     </div>
