@@ -10,7 +10,7 @@ const Sidebar = (props) => {
                 <img src={profile_icon} alt="" />
                 <p>{props.id}</p>
             </Link>
-            <Link to={'/analyse'} style={{ textDecoration: 'none' }}>
+            <Link to={`/user/${props.id}/analysis`} style={{ textDecoration: 'none' }}>
                 <div className="sidebar-item">
                     <p>Data Analysis</p>
                 </div>
