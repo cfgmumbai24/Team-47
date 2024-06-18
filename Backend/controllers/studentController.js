@@ -1,16 +1,28 @@
 const Student =  require( '../models/Student'); // Ensure this path is correct
 
+const mongoose = require('mongoose');
 const addStudent = async (req, res) => {
     try {
-        console.log('Student');
-        console.log(req.body);
-        const user = new Student(req.body);
-        console.log(user);
-        await user.save();
-        console.log(user);
+        const { fellow, name, rollnum, standard } = req.body;
+
+        if (!fellow) {
+            return res.status(400).json({
+                success: false,
+                message: 'Invalid fellow ID',
+            });
+        }
+
+        const student = new Student({
+            fellow ,
+            name,
+            rollnum,
+            standard
+        });
+
+        await student.save();
         res.status(200).json({
             success: true,
-            user,
+            student,
         });
     } catch (err) {
         console.error('Error during adding student:', err);
@@ -58,72 +70,55 @@ const getStudentbyClass = async (req, res) => {
 
 const getAllStudents = async (req, res) => {
     try {
-        const { fellowid } = req.body;
-
-        if (!fellowid) {
-            return res.status(400).json({
-                success: false,
-                message: 'Fellow ID is required to get students',
-            });
-        }
-
-        const students = await Student.find({ fellowid });
-
-        if (students.length === 0) {
-            return res.status(404).json({
-                success: false,
-                message: 'No students found for the given fellow ID',
-            });
-        }
-
-        res.status(200).json({
-            success: true,
-            students,
+      const { fellowid } = req.body;
+      console.log('Fellow ID from request:', fellowid);
+      if (!fellowid) {
+        return res.status(400).json({
+          success: false,
+          message: 'Fellow ID is required to get students',
         });
+      }
+  
+      // Correctly querying by 'fellow' field in the database
+      const students = await Student.find({ fellow: fellowid });
+  
+      if (students.length === 0) {
+        return res.status(404).json({
+          success: false,
+          message: 'No students found for the given fellow ID',
+        });
+      }
+  
+      res.status(200).json({
+        success: true,
+        students,
+      });
     } catch (err) {
-        console.error('Error during fetching students:', err);
-        res.status(500).json({
-            success: false,
-            message: 'An error occurred during fetching students',
-            error: err.message || 'Unknown error',
-        });
+      console.error('Error during fetching students:', err);
+      res.status(500).json({
+        success: false,
+        message: 'An error occurred during fetching students',
+        error: err.message || 'Unknown error',
+      });
     }
-};
+  };
 
-const editStudent = async (req, res) => {
-    try {
-        const { name, standard, attendance, monthly_score, quarter_scorenum, quarter_scorelit } = req.body;
-
-        if (!name || !standard) {
-            return res.status(400).json({
-                success: false,
-                message: 'Name and standard are required to update the student',
-            });
-        }
-
-        const incrementFields = {};
-        if (attendance !== undefined) incrementFields.attendance = attendance + 1;
-        if (monthly_score !== undefined) incrementFields.monthly_score = monthly_score;
-        if (quarter_scorenum !== undefined) incrementFields.quarter_scorenum = quarter_scorenum;
-        if (quarter_scorelit !== undefined) incrementFields.quarter_scorelit = quarter_scorelit;
-
-        const updatedStudent = await Student.findOneAndUpdate(
-            { name, standard },
-            { $inc: incrementFields },
-            { new: true, upsert: false }
-        );
-
-        if (!updatedStudent) {
-            return res.status(404).send('Student not found');
-        }
-
-        res.status(200).send('Edit successful');
-    } catch (error) {
-        console.error('Error during editing student:', error);
+const editStudent = async (req, res) => {   // await transactionModel.findOneAndUpdate({_id:req.body.transactionId},req.body.payload);
+    try{ 
+        // console.log(req.body);   // how to have communication skills like yours
+        const prev = await Student.findOne({_id:req.body.id});
+        console.log(prev);
+        await Student.findOneAndUpdate({name:req.body.name},req.body.payload);
+        const updated = await Student.findOne({_id:req.body.id});
+        console.log(updated);
+        console.log(updated);
+        res.status(200).send('edit-successfull');
+    }catch(error){
+        console.error('Error during getting all transactions:', err);
         res.status(500).json({
             success: false,
-            message: 'An error occurred during editing the student',
-            error: error.message || 'Unknown error',
+            message: 'An error occurred during getting all transactions',
+            error: err.message || 'Unknown error',
         });
     }
 };

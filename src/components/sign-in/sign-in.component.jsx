@@ -3,6 +3,8 @@ import "./sign-in.styles.scss";
 import FormInput from "../form-input/form-input.component";
 import CustomButton from "../custom-button/custom-button.component";
 import withNavigation from "../../withNavigation";
+import axios from "axios";
+import { message } from "antd";
 
 class SignIn extends React.Component {
   constructor() {
@@ -24,17 +26,34 @@ class SignIn extends React.Component {
     this.setState({ role: event.target.value });
   };
 
-  handleSubmit = (event) => {
+  handleSubmit = async (event) => {
     event.preventDefault();
 
     const { email, password, role } = this.state;
+    const val = { email, password };
 
-    // Add your authentication logic here
-    // After successful authentication, redirect based on role
-    if (role === "Fellow") {
-      this.props.navigate("/fellow-dashboard");
-    } else if (role === "Fellow Manager") {
-      this.props.navigate("/add-fellow");
+    try {
+      const response = await axios.post("http://localhost:8000/api/v1/users/login", val);
+      
+      if (response.status === 200) {
+        // Navigate to another page or show a success message
+        console.log("User logged in successfully", response.data);
+        message.success("Logged in successfully!");
+
+        // Store the user ID in local storage
+        localStorage.setItem("userId", JSON.stringify(response.data.user._id));
+
+        // Navigate to the appropriate dashboard
+        if (role === "Fellow") {
+          this.props.navigate("/fellow-dashboard");
+        } else if (role === "Fellow Manager") {
+          this.props.navigate("/add-fellow");
+        }
+      }
+    } catch (error) {
+      console.error("Error logging in", error);
+      // Handle error, e.g., show an error message
+      message.error("Login failed. Please check your credentials and try again.");
     }
 
     this.setState({ email: "", password: "", role: "Fellow" });
@@ -90,4 +109,3 @@ class SignIn extends React.Component {
 }
 
 export default withNavigation(SignIn);
-

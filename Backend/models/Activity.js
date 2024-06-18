@@ -28,7 +28,7 @@ const fellowSchema = new mongoose.Schema({
     },
     password: {
         type: String,
-        required: true
+        required: true  // meri to 9.4 cgpa hai and 
     },
     fellow_id: {
         type: Number,

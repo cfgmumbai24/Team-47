@@ -2,6 +2,7 @@ const Fellow = require('../models/Fellow');
 
 const loginController = async (req, res) => {
     try {
+        console.log(req.body);
         const { email, password } = req.body;
 
         // Find user by email and password
@@ -9,7 +10,7 @@ const loginController = async (req, res) => {
         if (!user) {
             return res.status(404).json({ success: false, message: "User not found" });
         }
-
+        
         res.status(200).json({
             success: true,
             user,
@@ -26,7 +27,7 @@ const loginController = async (req, res) => {
 
 const registerController = async (req, res) => {
     try {
-        const { name, email, password } = req.body;
+        const { name, email, password , profilepic } = req.body;
 
         // Check if the email already exists
         const existingUser = await Fellow.findOne({ password });
@@ -38,7 +39,7 @@ const registerController = async (req, res) => {
         }
 
         // Create a new user
-        const user = new Fellow({ name, email, password });
+        const user = new Fellow({ name, email, password ,profilepic});
         await user.save();
         console.log(user);
 

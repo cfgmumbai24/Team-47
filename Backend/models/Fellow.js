@@ -30,7 +30,10 @@ const fellowSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    
+    profilepic: {
+        type: String,
+        default: "https://unsplash.com/photos/a-man-standing-on-top-of-a-lush-green-hillside-lGKtfrsWUQI"
+    },
 
     
     // fellow_id: {

@@ -1,18 +1,4 @@
 const mongoose = require('mongoose');
-
-// MongoDB connection URI
-// const uri = 'mongodb://localhost:27017/education'; // Replace 'yourDatabaseName' with the actual name of your database
-
-// // Connect to MongoDB
-// mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
-//     .then(() => {
-//         console.log('Successfully connected to MongoDB');
-//     })
-//     .catch(err => {
-//         console.error('Error connecting to MongoDB:', err);
-//     });
-
-// Define the schema for the 'student' collection
 const { Schema } = mongoose;
 
 const studentSchema = new Schema({
@@ -20,10 +6,10 @@ const studentSchema = new Schema({
         type: String,
         required: true
     },
-    rollnum:{
+    rollnum: {
         type: Number,
         required: true
-    },
+    },      // got a long lst of 
     standard: {
         type: Number,
         required: true,
@@ -42,10 +28,10 @@ const studentSchema = new Schema({
         type: Number,
         default: 0
     },
-    activity_performed :{
+    activity_performed: {
         type: String,
         default: 'None',
-        enum: ['Social', 'group-diss', 'Active-part', 'Other','None']
+        enum: ['Social', 'group-diss', 'Active-part', 'Other', 'None']
     },
     quarter_scorenum: {
         type: Number,
@@ -56,17 +42,16 @@ const studentSchema = new Schema({
         default: 0
     },
     fellow: {
-        type: Schema.Types.ObjectId,
-        ref: 'Fellow', // Ensure 'Fellow' is the correct reference model
+        type: String,
+        // ref: 'Fellow', // Ensure 'Fellow' is the correct reference model
+        required: true
     },
     date: {
         type: Date,
-        default : Date.now()
+        default: Date.now()
     },
 });
 
-// Create the model for the 'student' collection
 const Student = mongoose.model('Student', studentSchema);
 
-// Export the model to use it in other parts of the application
 module.exports = Student;
