@@ -34,13 +34,7 @@ const fellowSchema = new mongoose.Schema({
         type: String,
         default: "https://unsplash.com/photos/a-man-standing-on-top-of-a-lush-green-hillside-lGKtfrsWUQI"
     },
-
-    
-    // fellow_id: {
-    //     type: Number,
-    //     autoIncrement: true,
-    //     primaryKey: true
-    // }
+ 
 });
 
 

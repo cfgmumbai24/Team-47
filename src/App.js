@@ -117,8 +117,8 @@ class App extends React.Component {
           <Route path="/fellow-manager-dashboard" element={<FellowManagerDashboard />} />
           <Route path="/Profile" element={<Profile />} />
           <Route path="/add-fellow" element={<AddFellow />} />
-          <Route path="/student-profile" element={<StudentProfile />} />
-         
+          <Route path="/student-profile/:userId" element={<StudentProfile />} />
+      
         </Routes>
       </div>
     );

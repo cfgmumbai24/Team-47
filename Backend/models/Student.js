@@ -9,7 +9,7 @@ const studentSchema = new Schema({
     rollnum: {
         type: Number,
         required: true
-    },      // got a long lst of 
+    },
     standard: {
         type: Number,
         required: true,
@@ -25,31 +25,55 @@ const studentSchema = new Schema({
         default: 0
     },
     monthly_score: {
-        type: Number,
-        default: 0
+        type: Number, // or appropriate type based on your schema
+        default: 0 // set a default value if it's an array
     },
+    monthly_scores: [{
+        month: {
+            type: String,
+            enum: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+            required: true
+        },
+        score: {
+            type: Number,
+            required: true
+        }
+    }],
     activity_performed: {
         type: String,
         default: 'None',
-        enum: ['Social', 'group-diss', 'Active-part', 'Other', 'None']
+        enum: ['Social', 'group-diss', 'Active-part', 'Other', 'None','A']
     },
-    quarter_scorenum: {
-        type: Number,
-        default: 0
-    },
-    quarter_scorelit: {
-        type: Number,
-        default: 0
-    },
+    monthly_scoreslit: [{
+        month: {
+            type: String,
+            enum: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+            required: true
+        },
+        score: {
+            type: Number,
+            required: true
+        }
+    }],
+    monthly_scoresnum: [{
+        month: {
+            type: String,
+            enum: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+            required: true
+        },
+        score: {
+            type: Number,
+            required: true
+        }
+    }],
     fellow: {
         type: String,
-        // ref: 'Fellow', // Ensure 'Fellow' is the correct reference model
         required: true
     },
     date: {
         type: Date,
         default: Date.now()
-    },
+    }
 });
 
 const Student = mongoose.model('Student', studentSchema);

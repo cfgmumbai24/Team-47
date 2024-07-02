@@ -3,8 +3,8 @@ const mongoose = require('mongoose');
 const cors = require("cors");
 
 // Import controllers
-const { loginController, registerController } = require('./controllers/userController');
-const { addStudent, editStudent, getStudentbyClass, getAllStudents } = require('./controllers/studentController');
+const { loginController, registerController, getFellow } = require('./controllers/userController');
+const { addStudent, editStudent, getStudentbyClass, getAllStudents, updateMarks ,getStudent} = require('./controllers/studentController');
 
 // MongoDB connection URI
 async function main() {
@@ -38,12 +38,15 @@ app.post('/api/v1/student/add-student', addStudent);
 app.post('/api/v1/student/edit-student', editStudent);
 app.post('/api/v1/student/get-studentbyclass', getStudentbyClass);
 app.post('/api/v1/student/get-allStudents', getAllStudents);
+app.post('/api/v1/student/update-monthly-score', updateMarks);
 
+app.post('/api/v1/student/getstudent', getStudent);
+app.post('/api/v1/student/getfellow', getFellow);
 // Start server
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
 
-// Connect to MongoDB on server start
+// Connect to MongoDB on server start and hence its always good to m propaa ji aap bade balwaan hai aap sabki jaan hai propaa propaa 
  

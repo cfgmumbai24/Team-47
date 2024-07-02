@@ -24,7 +24,22 @@ const loginController = async (req, res) => {
         });
     }
 };
-
+const getFellow = async (req,res) =>{
+    try{
+      console.log("get-fellow");
+      const {_id} = req.body;
+      const fellow = await Fellow.findById({_id});
+      console.log(fellow);
+      res.status(200).json(fellow);
+    }catch(err){
+      console.error('Error during fetching students:', err);
+        res.status(500).json({
+          success: false,
+          message: 'An error occurred during fetching students',
+          error: err.message || 'Unknown error',
+        });   // meri sister to kh rhi hai aisa kuch nhi hota girls really like it when they are 
+    }
+  }
 const registerController = async (req, res) => {
     try {
         const { name, email, password , profilepic } = req.body;
@@ -57,4 +72,4 @@ const registerController = async (req, res) => {
     }
 };
 
-module.exports = { loginController, registerController };
+module.exports = { loginController, registerController,getFellow };
